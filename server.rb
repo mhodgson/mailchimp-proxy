@@ -18,18 +18,17 @@ post '/' do
   begin
     response = Feralchimp.lists_subscribe(
       id: 'FBA519F75E',
-      email: params[:email],
+      email: { email: params[:email] },
       merge_vars: normalize_merge_vars(params[:merge_vars]),
       double_optin: false,
       update_existing: true,
       replace_interests: false,
       send_welcome: false
     )
+    [200, response.to_json]
   rescue Feralchimp::MailchimpError => error
-    response = { error: error.message }
+    [500, { error: error.message }.to_json]
   end
-
-  response.to_json
 end
 
 def normalize_merge_vars(params)
