@@ -1,10 +1,18 @@
 require 'sinatra'
+require 'sinatra/cross_origin'
 require 'feralchimp'
 require 'json'
+
+set :allow_origin, :any
+set :allow_methods, [:get, :post, :options]
+set :allow_credentials, true
+set :max_age, "1728000"
+set :expose_headers, ['Content-Type']
 
 Feralchimp.api_key = '3bbafb50ec8cd3af61c645d689281a8f-us4'
 
 post '/' do
+  cross_origin
   content_type :json
 
   begin
