@@ -25,7 +25,7 @@ post '/' do
       replace_interests: false,
       send_welcome: false
     )
-  rescue MailchimpError => error
+  rescue Feralchimp::MailchimpError => error
     response = { error: error.message }
   end
 
